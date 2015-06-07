@@ -6,6 +6,9 @@ import java.applet.Applet;
 import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
 
@@ -39,7 +42,7 @@ public class StartingClass extends Applet implements Runnable, KeyListener{
 
     private static Background bg1, bg2;
 
-    public static Image tiledirt, tileocean;
+    public static Image tilegrassTop, tilegrassBot, tilegrassLeft, tilegrassRight, tiledirt;
 
 
     @Override
@@ -74,7 +77,11 @@ public class StartingClass extends Applet implements Runnable, KeyListener{
         background = getImage(base, "/home/maro/IdeaProjects/KiloboltGame/src/data/background.png");
 
         tiledirt = getImage(base, "/home/maro/IdeaProjects/KiloboltGame/src/data/tiledirt.png");
-        tileocean = getImage(base, "/home/maro/IdeaProjects/KiloboltGame/src/data/tileocean.png");
+        tiledirt = getImage(base, "/home/maro/IdeaProjects/KiloboltGame/src/data/tiledirt.png");
+        tilegrassTop = getImage(base, "/home/maro/IdeaProjects/KiloboltGame/src/data/tilegrasstop.png");
+        tilegrassBot = getImage(base, "/home/maro/IdeaProjects/KiloboltGame/src/data/tilegrassbot.png");
+        tilegrassLeft = getImage(base, "/home/maro/IdeaProjects/KiloboltGame/src/data/tilegrassleft.png");
+        tilegrassRight = getImage(base, "/home/maro/IdeaProjects/KiloboltGame/src/data/tilegrassright.png");
 
         anim = new Animation();
         anim.addFrame(character, 1250);
@@ -103,17 +110,10 @@ public class StartingClass extends Applet implements Runnable, KeyListener{
         bg2 = new Background(2160, 0);
 
         // initialize Tiles
-        for (int i = 0; i < 200; i++) {
-            for (int j = 0; j < 12; j++) {
-                if (j == 11) {
-                    Tile t = new Tile(i, j, 2);
-                    tileArray.add(t);
-                }
-                if (j == 10) {
-                    Tile t = new Tile(i, j, 1);
-                    tileArray.add(t);
-                }
-            }
+        try {
+            loadMap("/home/maro/IdeaProjects/KiloboltGame/src/data/map1.txt");
+        } catch (IOException e) {
+            e.printStackTrace();
         }
 
         // character and heliboys
@@ -123,6 +123,44 @@ public class StartingClass extends Applet implements Runnable, KeyListener{
 
         Thread thread = new Thread(this);
         thread.start();
+    }
+
+    private void loadMap(String fileName) throws IOException {
+
+        ArrayList lines = new ArrayList();
+        int width = 0;
+        int height = 0;
+
+        BufferedReader reader = new BufferedReader(new FileReader(fileName));
+        while (true) {
+            String line = reader.readLine();
+            // no more lines to read
+            if (line == null) {
+                reader.close();
+                break;
+            }
+
+            if (!line.startsWith("!")) {
+                lines.add(line);
+                width = Math.max(width, line.length());
+
+            }
+        }
+        height = lines.size();
+
+        for (int j = 0; j < 12; j++) {
+            String line = (String) lines.get(j);
+            for (int i = 0; i < width; i++) {
+                System.out.println(i + "is i ");
+
+                if (i < line.length()) {
+                    char ch = line.charAt(i);
+                    Tile t = new Tile(i, j, Character.getNumericValue(ch));
+                    tileArray.add(t);
+                }
+
+            }
+        }
     }
 
     @Override
@@ -193,6 +231,7 @@ public class StartingClass extends Applet implements Runnable, KeyListener{
 
     @Override
     public void paint(Graphics g) {
+
         g.drawImage(background, bg1.getBgX(), bg1.getBgY(), this);
         g.drawImage(background, bg2.getBgX(), bg2.getBgY(), this);
 

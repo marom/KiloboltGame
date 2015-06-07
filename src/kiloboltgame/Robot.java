@@ -74,13 +74,13 @@ public class Robot {
     }
 
     public void moveRight() {
-        if (ducked) {
+        if (!ducked) {
             speedX = MOVE_SPEED;
         }
     }
 
     public void moveLeft() {
-        if (ducked) {
+        if (!ducked) {
             speedX = -MOVE_SPEED;
         }
     }
