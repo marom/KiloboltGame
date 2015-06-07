@@ -25,7 +25,7 @@ public class Robot {
     private int speedX = 0;
     private int speedY = 1;
 
-    private ArrayList<Projectile> projectiles = new ArrayList<Projectile>();
+    private ArrayList<Projectile> projectiles = new ArrayList<>();
 
 
     public void update() {
@@ -45,8 +45,8 @@ public class Robot {
         }
 
         if (speedX > 0 && centerX > 200) {
-            bg1.setSpeedX(-MOVE_SPEED);
-            bg2.setSpeedX(-MOVE_SPEED);
+            bg1.setSpeedX(-MOVE_SPEED / 5);
+            bg2.setSpeedX(-MOVE_SPEED / 5);
         }
 
 
@@ -57,7 +57,7 @@ public class Robot {
         }
 
         // handles jumping
-        if (jumped == true) {
+        if (jumped) {
             speedY += 1;
 
             if (centerY + speedY >= GROUND) {
@@ -74,13 +74,13 @@ public class Robot {
     }
 
     public void moveRight() {
-        if (ducked == false) {
+        if (ducked) {
             speedX = MOVE_SPEED;
         }
     }
 
     public void moveLeft() {
-        if (ducked == false) {
+        if (ducked) {
             speedX = -MOVE_SPEED;
         }
     }
@@ -97,19 +97,19 @@ public class Robot {
 
     public void stop() {
 
-        if (isMovingRight() == false && isMovingLeft() == false) {
+        if (!isMovingRight() && !isMovingLeft()) {
             speedX = 0;
         }
-        if (isMovingRight() == false && isMovingLeft() == true) {
+        if (!isMovingRight() && isMovingLeft()) {
             moveLeft();
         }
-        if (isMovingRight() == true && isMovingLeft() == false) {
+        if (isMovingRight() && !isMovingLeft()) {
             moveRight();
         }
     }
 
     public void jump() {
-        if (jumped == false) {
+        if (!jumped) {
             speedY = JUMP_SPEED;
             jumped = true;
         }
