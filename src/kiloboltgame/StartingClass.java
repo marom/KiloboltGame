@@ -1,5 +1,7 @@
 package kiloboltgame;
 
+import kiloboltgame.framework.Animation;
+
 import java.applet.Applet;
 import java.awt.*;
 import java.awt.event.KeyEvent;
@@ -17,12 +19,22 @@ public class StartingClass extends Applet implements Runnable, KeyListener{
     private Image image;
     private Image currentSprite;
     private Image character;
+    private Image character2;
+    private Image character3;
     private Image characterDown;
     private Image characterJumped;
     private Image background;
     private Image heliboy;
+    private Image heliboy2;
+    private Image heliboy3;
+    private Image heliboy4;
+    private Image heliboy5;
+
     private Graphics second;
     private URL base;
+
+    private Animation anim, hanim;
+
     private static Background bg1, bg2;
 
 
@@ -43,11 +55,38 @@ public class StartingClass extends Applet implements Runnable, KeyListener{
 
         // image setups
         character = getImage(base, "/home/maro/IdeaProjects/KiloboltGame/src/data/character.png");
+        character2 = getImage(base, "/home/maro/IdeaProjects/KiloboltGame/src/data/character2.png");
+        character3 = getImage(base, "/home/maro/IdeaProjects/KiloboltGame/src/data/character3.png");
+
         characterDown = getImage(base, "/home/maro/IdeaProjects/KiloboltGame/src/data/down.png");
         characterJumped = getImage(base, "/home/maro/IdeaProjects/KiloboltGame/src/data/jumped.png");
-        currentSprite = character;
-        background = getImage(base, "/home/maro/IdeaProjects/KiloboltGame/src/data/background.png");
+
         heliboy = getImage(base, "/home/maro/IdeaProjects/KiloboltGame/src/data/heliboy.png");
+        heliboy2 = getImage(base, "/home/maro/IdeaProjects/KiloboltGame/src/data/heliboy2.png");
+        heliboy3 = getImage(base, "/home/maro/IdeaProjects/KiloboltGame/src/data/heliboy3.png");
+        heliboy4 = getImage(base, "/home/maro/IdeaProjects/KiloboltGame/src/data/heliboy4.png");
+        heliboy5 = getImage(base, "/home/maro/IdeaProjects/KiloboltGame/src/data/heliboy5.png");
+
+        background = getImage(base, "/home/maro/IdeaProjects/KiloboltGame/src/data/background.png");
+
+        anim = new Animation();
+        anim.addFrame(character, 1250);
+        anim.addFrame(character2, 50);
+        anim.addFrame(character3, 50);
+        anim.addFrame(character2, 50);
+
+        hanim = new Animation();
+        hanim.addFrame(heliboy, 100);
+        hanim.addFrame(heliboy2, 100);
+        hanim.addFrame(heliboy3, 100);
+        hanim.addFrame(heliboy4, 100);
+        hanim.addFrame(heliboy5, 100);
+        hanim.addFrame(heliboy4, 100);
+        hanim.addFrame(heliboy3, 100);
+        hanim.addFrame(heliboy2, 100);
+
+        currentSprite = anim.getImage();
+
     }
 
     @Override
@@ -80,9 +119,10 @@ public class StartingClass extends Applet implements Runnable, KeyListener{
             if (robot.isJumped()) {
                 currentSprite = characterJumped;
             } else if (robot.isJumped() == false && robot.isDucked() == false) {
-                currentSprite = character;
+                currentSprite = anim.getImage();
             }
 
+            // bullets
             ArrayList projectiles = robot.getProjectiles();
             for (int i = 0; i < projectiles.size(); i++) {
                 Projectile p = (Projectile) projectiles.get(i);
@@ -97,6 +137,8 @@ public class StartingClass extends Applet implements Runnable, KeyListener{
 
             bg1.update();
             bg2.update();
+
+            animate();
             repaint();
 
             try {
@@ -135,8 +177,8 @@ public class StartingClass extends Applet implements Runnable, KeyListener{
             g.fillRect(p.getX(), p.getY(), 10, 5);
         }
         g.drawImage(currentSprite, robot.getCenterX() - 61, robot.getCenterY() - 63, this);
-        g.drawImage(heliboy, hb.getCenterX() - 48, hb.getCenterY() - 48, this);
-        g.drawImage(heliboy, hb2.getCenterX() - 48, hb2.getCenterY() - 48, this);
+        g.drawImage(hanim.getImage(), hb.getCenterX() - 48, hb.getCenterY() - 48, this);
+        g.drawImage(hanim.getImage(), hb2.getCenterX() - 48, hb2.getCenterY() - 48, this);
     }
 
     @Override
@@ -188,6 +230,7 @@ public class StartingClass extends Applet implements Runnable, KeyListener{
                 break;
             case KeyEvent.VK_DOWN:
                 System.out.println("stop moving down");
+                currentSprite = anim.getImage();
                 robot.setDucked(false);
                 break;
             case KeyEvent.VK_LEFT:
@@ -202,6 +245,11 @@ public class StartingClass extends Applet implements Runnable, KeyListener{
                 System.out.println("stop jumping!!");
                 break;
         }
+    }
+
+    public void animate() {
+        anim.update(10);
+        hanim.update(50);
     }
 
     public static Background getBg1() {
