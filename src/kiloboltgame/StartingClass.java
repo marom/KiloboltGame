@@ -12,7 +12,14 @@ import java.net.URL;
 public class StartingClass extends Applet implements Runnable, KeyListener{
 
     private Robot robot;
-    private Image image, currentSprite, character, characterDown, characterJumped, background;
+    private Heliboy hb, hb2;
+    private Image image;
+    private Image currentSprite;
+    private Image character;
+    private Image characterDown;
+    private Image characterJumped;
+    private Image background;
+    private Image heliboy;
     private Graphics second;
     private URL base;
     private static Background bg1, bg2;
@@ -39,6 +46,7 @@ public class StartingClass extends Applet implements Runnable, KeyListener{
         characterJumped = getImage(base, "/home/maro/IdeaProjects/KiloboltGame/src/data/jumped.png");
         currentSprite = character;
         background = getImage(base, "/home/maro/IdeaProjects/KiloboltGame/src/data/background.png");
+        heliboy = getImage(base, "/home/maro/IdeaProjects/KiloboltGame/src/data/heliboy.png");
     }
 
     @Override
@@ -47,6 +55,8 @@ public class StartingClass extends Applet implements Runnable, KeyListener{
         bg1 = new Background(0, 0);
         bg2 = new Background(2160, 0);
         robot = new Robot();
+        hb = new Heliboy(340, 360);
+        hb2 = new Heliboy(700, 360);
 
         Thread thread = new Thread(this);
         thread.start();
@@ -71,6 +81,9 @@ public class StartingClass extends Applet implements Runnable, KeyListener{
             } else if (robot.isJumped() == false && robot.isDucked() == false) {
                 currentSprite = character;
             }
+
+            hb.update();
+            hb2.update();
 
             bg1.update();
             bg2.update();
@@ -105,6 +118,8 @@ public class StartingClass extends Applet implements Runnable, KeyListener{
         g.drawImage(background, bg1.getBgX(), bg1.getBgY(), this);
         g.drawImage(background, bg2.getBgX(), bg2.getBgY(), this);
         g.drawImage(currentSprite, robot.getCenterX() - 61, robot.getCenterY() - 63, this);
+        g.drawImage(heliboy, hb.getCenterX() - 48, hb.getCenterY() - 48, this);
+        g.drawImage(heliboy, hb2.getCenterX() - 48, hb2.getCenterY() - 48, this);
     }
 
     @Override
