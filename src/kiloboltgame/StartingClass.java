@@ -5,6 +5,7 @@ import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.net.URL;
+import java.util.ArrayList;
 
 /**
  * Created by maro on 6/7/15.
@@ -82,6 +83,15 @@ public class StartingClass extends Applet implements Runnable, KeyListener{
                 currentSprite = character;
             }
 
+            ArrayList projectiles = robot.getProjectiles();
+            for (int i = 0; i < projectiles.size(); i++) {
+                Projectile p = (Projectile) projectiles.get(i);
+                if (p.isVisible()) {
+                    p.update();
+                } else {
+                    projectiles.remove(i);
+                }
+            }
             hb.update();
             hb2.update();
 
@@ -117,6 +127,13 @@ public class StartingClass extends Applet implements Runnable, KeyListener{
     public void paint(Graphics g) {
         g.drawImage(background, bg1.getBgX(), bg1.getBgY(), this);
         g.drawImage(background, bg2.getBgX(), bg2.getBgY(), this);
+
+        ArrayList projectiles = robot.getProjectiles();
+        for (int i = 0; i < projectiles.size(); i++) {
+            Projectile p = (Projectile) projectiles.get(i);
+            g.setColor(Color.YELLOW);
+            g.fillRect(p.getX(), p.getY(), 10, 5);
+        }
         g.drawImage(currentSprite, robot.getCenterX() - 61, robot.getCenterY() - 63, this);
         g.drawImage(heliboy, hb.getCenterX() - 48, hb.getCenterY() - 48, this);
         g.drawImage(heliboy, hb2.getCenterX() - 48, hb2.getCenterY() - 48, this);
@@ -154,6 +171,11 @@ public class StartingClass extends Applet implements Runnable, KeyListener{
             case KeyEvent.VK_SPACE:
                 robot.jump();
                 System.out.println("JUMP!!");
+                break;
+            case KeyEvent.VK_CONTROL:
+                if (robot.isDucked() == false && robot.isJumped() == false) {
+                    robot.shoot();
+                }
                 break;
         }
     }
