@@ -15,6 +15,12 @@ public class Robot {
     private int centerY = 377;
     public static Rectangle rect = new Rectangle(0, 0, 0, 0);
     public static Rectangle rect2 = new Rectangle(0, 0, 0, 0);
+    public static Rectangle rect3 = new Rectangle(0, 0, 0, 0);
+    public static Rectangle rect4 = new Rectangle(0, 0, 0, 0);
+    public static Rectangle yellowRed = new Rectangle(0, 0, 0, 0);
+    public static Rectangle footleft = new Rectangle(0, 0, 0, 0);
+    public static Rectangle footright = new Rectangle(0, 0, 0, 0);
+
 
     private boolean jumped = false;
     private boolean movingLeft = false;
@@ -57,8 +63,9 @@ public class Robot {
         centerY += speedY;
 
         // handles jumping
-        if (jumped) {
-            speedY += 1;
+        speedY += 1;
+        if (speedY > 3) {
+            jumped = true;
         }
 
         // prevents going beyond x coordinate of 0
@@ -68,6 +75,12 @@ public class Robot {
 
         rect.setRect(centerX - 34, centerY - 63, 68, 63);
         rect2.setRect(rect.getX(), rect.getY() + 63, 68, 64);
+        rect3.setRect(rect.getX() - 26, rect.getY() + 32, 26, 20);
+        rect4.setRect(rect.getX() + 68, rect.getY() + 32, 26, 20);
+        yellowRed.setRect(centerX - 110, centerY - 110, 180, 180);
+        footleft.setRect(centerX - 50, centerY + 20 , 50, 15);
+        yellowRed.setRect(centerX, centerY + 20, 50, 15);
+
     }
 
     public void moveRight() {
