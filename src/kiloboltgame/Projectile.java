@@ -29,7 +29,7 @@ public class Projectile {
             r = null;
         }
 
-        if (x < 801) {
+        if (x < 800) {
             checkCollision();
         }
     }
@@ -37,12 +37,25 @@ public class Projectile {
     private void checkCollision() {
         if (r.intersects(StartingClass.hb.r)) {
             visible = false;
-            StartingClass.score += 1;
+            if (StartingClass.hb.health > 0) {
+                StartingClass.hb.health -= 1;
+            }
+            if (StartingClass.hb.health == 0) {
+                StartingClass.hb.setCenterX(-100);
+                StartingClass.score += 5;
+            }
+
         }
 
         if (r.intersects(StartingClass.hb2.r)) {
             visible = false;
-            StartingClass.score += 1;
+            if (StartingClass.hb2.health > 0) {
+                StartingClass.hb2.health -= 1;
+            }
+            if (StartingClass.hb2.health == 0) {
+                StartingClass.hb2.setCenterX(-100);
+                StartingClass.score += 5;
+            }
         }
     }
 
