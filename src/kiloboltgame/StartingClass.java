@@ -17,7 +17,7 @@ import java.util.ArrayList;
  */
 public class StartingClass extends Applet implements Runnable, KeyListener{
 
-    private Robot robot;
+    private static Robot robot;
     private Heliboy hb, hb2;
     private Image image;
     private Image currentSprite;
@@ -109,6 +109,8 @@ public class StartingClass extends Applet implements Runnable, KeyListener{
         bg1 = new Background(0, 0);
         bg2 = new Background(2160, 0);
 
+        robot = new Robot();
+
         // initialize Tiles
         try {
             loadMap("/home/maro/IdeaProjects/KiloboltGame/src/data/map1.txt");
@@ -119,7 +121,6 @@ public class StartingClass extends Applet implements Runnable, KeyListener{
         // character and heliboys
         hb = new Heliboy(340, 360);
         hb2 = new Heliboy(700, 360);
-        robot = new Robot();
 
         Thread thread = new Thread(this);
         thread.start();
@@ -298,6 +299,7 @@ public class StartingClass extends Applet implements Runnable, KeyListener{
             case KeyEvent.VK_CONTROL:
                 if (!robot.isDucked() && !robot.isJumped()) {
                     robot.shoot();
+                    robot.setReadyToFire(false);
                 }
                 break;
         }
@@ -325,6 +327,9 @@ public class StartingClass extends Applet implements Runnable, KeyListener{
             case KeyEvent.VK_SPACE:
                 System.out.println("stop jumping!!");
                 break;
+            case KeyEvent.VK_CONTROL:
+                robot.setReadyToFire(true);
+                break;
         }
     }
 
@@ -341,4 +346,7 @@ public class StartingClass extends Applet implements Runnable, KeyListener{
         return bg2;
     }
 
+    public static Robot getRobot() {
+        return robot;
+    }
 }

@@ -10,6 +10,7 @@ public class Tile {
     private int tileX, tileY, speedX, type;
     public Image tileImage;
 
+    private Robot robot = StartingClass.getRobot();
     private Background bg = StartingClass.getBg1();
 
     public Tile(int x, int y, int typeInt) {
@@ -35,18 +36,7 @@ public class Tile {
     }
 
     public void update() {
-
-        if (type == 1) {
-            if (bg.getSpeedX() == 0){
-                speedX = -1;
-            }else{
-                speedX = -2;
-            }
-
-        } else {
-            speedX = bg.getSpeedX()*5;
-        }
-
+        speedX = bg.getSpeedX() * 5;
         tileX += speedX;
     }
 
