@@ -71,27 +71,27 @@ public class StartingClass extends Applet implements Runnable, KeyListener{
         }
 
         // image setups
-        character = getImage(base, "/home/maro/IdeaProjects/KiloboltGame/src/data/character.png");
-        character2 = getImage(base, "/home/maro/IdeaProjects/KiloboltGame/src/data/character2.png");
-        character3 = getImage(base, "/home/maro/IdeaProjects/KiloboltGame/src/data/character3.png");
+        character = getImage(base, "../KiloboltGame/data/character.png");
+        character2 = getImage(base, "../KiloboltGame/data/character2.png");
+        character3 = getImage(base, "../KiloboltGame/data/character3.png");
 
-        characterDown = getImage(base, "/home/maro/IdeaProjects/KiloboltGame/src/data/down.png");
-        characterJumped = getImage(base, "/home/maro/IdeaProjects/KiloboltGame/src/data/jumped.png");
+        characterDown = getImage(base, "../KiloboltGame/data/down.png");
+        characterJumped = getImage(base, "../KiloboltGame/data/jumped.png");
 
-        heliboy = getImage(base, "/home/maro/IdeaProjects/KiloboltGame/src/data/heliboy.png");
-        heliboy2 = getImage(base, "/home/maro/IdeaProjects/KiloboltGame/src/data/heliboy2.png");
-        heliboy3 = getImage(base, "/home/maro/IdeaProjects/KiloboltGame/src/data/heliboy3.png");
-        heliboy4 = getImage(base, "/home/maro/IdeaProjects/KiloboltGame/src/data/heliboy4.png");
-        heliboy5 = getImage(base, "/home/maro/IdeaProjects/KiloboltGame/src/data/heliboy5.png");
+        heliboy = getImage(base, "../KiloboltGame/data/heliboy.png");
+        heliboy2 = getImage(base, "../KiloboltGame/data/heliboy2.png");
+        heliboy3 = getImage(base, "../KiloboltGame/data/heliboy3.png");
+        heliboy4 = getImage(base, "../KiloboltGame/data/heliboy4.png");
+        heliboy5 = getImage(base, "../KiloboltGame/data/heliboy5.png");
 
-        background = getImage(base, "/home/maro/IdeaProjects/KiloboltGame/src/data/background.png");
+        background = getImage(base, "../KiloboltGame/data/background.png");
 
-        tiledirt = getImage(base, "/home/maro/IdeaProjects/KiloboltGame/src/data/tiledirt.png");
-        tiledirt = getImage(base, "/home/maro/IdeaProjects/KiloboltGame/src/data/tiledirt.png");
-        tilegrassTop = getImage(base, "/home/maro/IdeaProjects/KiloboltGame/src/data/tilegrasstop.png");
-        tilegrassBot = getImage(base, "/home/maro/IdeaProjects/KiloboltGame/src/data/tilegrassbot.png");
-        tilegrassLeft = getImage(base, "/home/maro/IdeaProjects/KiloboltGame/src/data/tilegrassleft.png");
-        tilegrassRight = getImage(base, "/home/maro/IdeaProjects/KiloboltGame/src/data/tilegrassright.png");
+        tiledirt = getImage(base, "../KiloboltGame/data/tiledirt.png");
+        tiledirt = getImage(base, "../KiloboltGame/data/tiledirt.png");
+        tilegrassTop = getImage(base, "../KiloboltGame/data/tilegrasstop.png");
+        tilegrassBot = getImage(base, "../KiloboltGame/data/tilegrassbot.png");
+        tilegrassLeft = getImage(base, "../KiloboltGame/data/tilegrassleft.png");
+        tilegrassRight = getImage(base, "../KiloboltGame/data/tilegrassright.png");
 
         anim = new Animation();
         anim.addFrame(character, 1250);
@@ -264,9 +264,6 @@ public class StartingClass extends Applet implements Runnable, KeyListener{
                 g.setColor(Color.YELLOW);
                 g.fillRect(p.getX(), p.getY(), 10, 5);
             }
-
-            g.drawRect((int) robot.rect.getX(), (int) robot.rect.getY(), (int) robot.rect.getWidth(), (int) robot.rect.getHeight());
-            g.drawRect((int) robot.rect2.getX(), (int) robot.rect2.getY(), (int) robot.rect2.getWidth(), (int) robot.rect2.getHeight());
 
             g.drawImage(currentSprite, robot.getCenterX() - 61, robot.getCenterY() - 63, this);
             g.drawImage(hanim.getImage(), hb.getCenterX() - 48, hb.getCenterY() - 48, this);
