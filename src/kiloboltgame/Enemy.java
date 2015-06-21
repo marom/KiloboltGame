@@ -1,5 +1,7 @@
 package kiloboltgame;
 
+import java.awt.*;
+
 /**
  * Created by maro on 6/7/15.
  */
@@ -8,11 +10,23 @@ public class Enemy {
     private int maxHealth, currentHealth, power, speedX, centerX, centerY;
     private Background bg = StartingClass.getBg1();
 
+    public Rectangle r = new Rectangle(0, 0, 0, 0);
 
     // behavioral methods
     public void update() {
         centerX += speedX;
         speedX = bg.getSpeedX() * 5;
+        r.setBounds(centerX - 25, centerY - 25, 50, 60);
+
+        if (r.intersects(Robot.yellowRed)) {
+            checkCollision();
+        }
+    }
+
+    private void checkCollision() {
+        if (r.intersects(Robot.rect) || r.intersects(Robot.rect2) || r.intersects(Robot.rect3) || r.intersects(Robot.rect4)) {
+            System.out.println("collision");
+        }
     }
 
     public void die() {

@@ -74,12 +74,12 @@ public class Robot {
         }
 
         rect.setRect(centerX - 34, centerY - 63, 68, 63);
-        rect2.setRect(rect.getX(), rect.getY() + 63, 68, 64);
+        rect2.setRect(rect.getX(), rect.getY() + 63, 68, 63);
         rect3.setRect(rect.getX() - 26, rect.getY() + 32, 26, 20);
         rect4.setRect(rect.getX() + 68, rect.getY() + 32, 26, 20);
         yellowRed.setRect(centerX - 110, centerY - 110, 180, 180);
         footleft.setRect(centerX - 50, centerY + 20 , 50, 15);
-        yellowRed.setRect(centerX, centerY + 20, 50, 15);
+        footright.setRect(centerX, centerY + 20, 50, 15);
 
     }
 

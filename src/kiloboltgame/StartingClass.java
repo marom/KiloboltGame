@@ -18,7 +18,10 @@ import java.util.ArrayList;
 public class StartingClass extends Applet implements Runnable, KeyListener{
 
     private static Robot robot;
-    private Heliboy hb, hb2;
+    public static Heliboy hb, hb2;
+    public static int score = 0;
+    private Font font = new Font(null, Font.BOLD, 30);
+
     private Image image;
     private Image currentSprite;
     private Image character;
@@ -251,6 +254,11 @@ public class StartingClass extends Applet implements Runnable, KeyListener{
         g.drawImage(currentSprite, robot.getCenterX() - 61, robot.getCenterY() - 63, this);
         g.drawImage(hanim.getImage(), hb.getCenterX() - 48, hb.getCenterY() - 48, this);
         g.drawImage(hanim.getImage(), hb2.getCenterX() - 48, hb2.getCenterY() - 48, this);
+
+        g.setFont(font);
+        g.setColor(Color.WHITE);
+        g.drawString(Integer.toString(score), 740, 30);
+
     }
 
     private void updateTiles() {
@@ -301,7 +309,7 @@ public class StartingClass extends Applet implements Runnable, KeyListener{
                 System.out.println("JUMP!!");
                 break;
             case KeyEvent.VK_CONTROL:
-                if (!robot.isDucked() && !robot.isJumped()) {
+                if (!robot.isDucked() && !robot.isJumped() && robot.isReadyToFire()) {
                     robot.shoot();
                     robot.setReadyToFire(false);
                 }
